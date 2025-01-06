@@ -1,0 +1,36 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests (optioneel, als je tests hebt)
+        run: npm run test
+
+      - name: Build the app
+        run: npm run build
+
+      - name: Deploy the app (optioneel, als je een deploy-stap hebt)
+        run: |
+          echo "Deploying the application"
+          # Voeg hier de deploy-commando's toe
